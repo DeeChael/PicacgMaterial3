@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.ShihCheeng.Chip.Action" parent="Widget.MaterialComponents.Chip.Action">
+
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipMinHeight">28dp</item>
+        <item name="chipCornerRadius">3dp</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="textEndPadding">1dp</item>
+        <item name="textStartPadding">1dp</item>
+
+    </style>
+
+    <style name="Widget.ShihCheeng.Chip.Tags" parent="Widget.Material3.Chip.Suggestion.Elevated">
+
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipMinHeight">26dp</item>
+        <item name="chipCornerRadius">4dp</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="textEndPadding">0dp</item>
+        <item name="textStartPadding">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textColor">?colorOnSecondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="chipBackgroundColor">?colorSecondary</item>
+        <item name="android:textAppearance">?textAppearanceBodySmall</item>
+
+    </style>
+
+
+</resources>

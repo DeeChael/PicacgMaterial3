@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">哔咔哔咔</string>
+    <string name="action_settings">设置</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="third_fragment_label">Third Fragment</string>
+    <string name="next">下一个</string>
+    <string name="previous">上一个</string>
+    <string name="all">所有</string>
+    <string name="leaderboard">热度</string>
+    <string name="me">我的</string>
+    <string name="point_count">绅士指名次数：</string>
+    <string name="like_count">爱心人数：</string>
+    <string name="myf">我的收藏</string>
+    <string name="login_text">登录</string>
+    <string name="username">用户名或邮箱</string>
+    <string name="password">密码</string>
+    <string name="comics_title">分类：%s</string>
+    <string name="limited_show">有限的显示数量</string>
+    <string name="get_token">获取登录信息中</string>
+    <string name="comic_info_text">漫画详情</string>
+    <string name="comic_last_update">最后一次更新：%s</string>
+    <string name="comic_title">%s（共%s页）</string>
+    <string name="num_show">我的漫画章节名字很长</string>
+    <string name="time_show">2020年12月12日 12:12:12</string>
+    <string name="time_out">超时</string>
+    <string name="retry">重试</string>
+    <string name="see_all">查看全部</string>
+    <string name="page_count">第 %s 页 / 共 %s 页</string>
+    <string name="parser_uri">解析URL</string>
+    <string name="loading_picture">加载图片</string>
+    <string name="parser_uri_error_time">解析链接超时</string>
+    <string name="loading_data_chao_shi">获取数据超时</string>
+    <string name="parser_uri_error">获取链接失败</string>
+    <string name="loading_data_shi_ba">获取数据失败</string>
+    <string name="create_by">该漫画由 %s 上传</string>
+    <string name="setting">设置</string>
+    <string name="helper_text">请注意：用户名没有包含大小写</string>
+    <string name="touch_to_retry">点击来重试</string>
+
+</resources>

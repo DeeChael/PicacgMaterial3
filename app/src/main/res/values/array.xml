@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="color_array">
+        <item>@android:color/holo_red_light</item>
+        <item>@android:color/holo_blue_light</item>
+        <item>@android:color/holo_orange_light</item>
+    </integer-array>
+
+    <string-array name="setting_channel_set">
+        <item>分流1</item>
+        <item>分流2</item>
+        <item>分流3</item>
+    </string-array>
+
+    <string-array name="setting_channel_set_value">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="image_set">
+        <item>原画</item>
+        <item>高</item>
+        <item>中</item>
+        <item>低</item>
+    </string-array>
+
+    <string-array name="image_set_value">
+        <item>original</item>
+        <item>high</item>
+        <item>medium</item>
+        <item>low</item>
+    </string-array>
+
+</resources>
