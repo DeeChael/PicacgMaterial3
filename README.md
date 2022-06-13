@@ -25,6 +25,8 @@
 
 [czp3009/picacomic-api](https://github.com/czp3009/picacomic-api) api支持
 
+[tachiyomiorg/tachiyomi](https://github.com/tachiyomiorg/tachiyomi) 代码及写法帮助
+
 还有其他大大小小的开源项目，让我这个初学者得以做出此软件
 
 ## 反馈
