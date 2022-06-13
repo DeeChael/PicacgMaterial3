@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.ChipGroup
 import com.shicheeng.picacgmaterial3.R
@@ -42,7 +43,10 @@ class RankAdapter(private val list: MutableList<RankData>) :
             textAuthor.text = list[position].author
             textCount.text = list[position].leaderboardCount.toString()
             textLike.text = list[position].decType
-            Glide.with(holder.itemView.context).load(list[position].url).into(thumbImage)
+            Glide.with(holder.itemView.context).load(list[position].url)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(thumbImage)
         }
 
         holder.tagsList.apply {
@@ -58,6 +62,7 @@ class RankAdapter(private val list: MutableList<RankData>) :
 
 
     }
+
 
     override fun getItemCount(): Int = list.size
 

@@ -38,5 +38,11 @@
     <string name="setting">设置</string>
     <string name="helper_text">请注意：用户名没有包含大小写</string>
     <string name="touch_to_retry">点击来重试</string>
-
+    <string name="token_out_date">Token过期，重新登录</string>
+    <string name="summary_clear_cache">清除本软件所产生的缓存(共 %s)</string>
+    <string name="text_keyword">大家都在搜</string>
+    <string name="loading_text">加载中</string>
+    <string name="search">搜索</string>
+    <string name="search_tip">输入搜索内容</string>
+    <string name="unknown_author">未知作者</string>
 </resources>

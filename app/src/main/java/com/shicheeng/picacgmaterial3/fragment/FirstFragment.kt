@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.gson.JsonParser
@@ -33,7 +33,7 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,15 +82,11 @@ class FirstFragment : Fragment() {
         }
 
         viewModel.categoryError.observe(viewLifecycleOwner) {
-            binding.firstFModernButton.apply {
-                showState(true)
-                setTipText(it)
-                setOnClickListener {
-                    viewModel.category(token)
-                    binding.firstFCircularProgress.setShowWithBoolean(true)
-                    showState(false)
-                }
-            }
+            retry(it, token)
+        }
+
+        viewModel.loginOutError.observe(viewLifecycleOwner) {
+            retry(it, token)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { _: View, windowInsetsCompat: WindowInsetsCompat ->
@@ -101,6 +97,20 @@ class FirstFragment : Fragment() {
             WindowInsetsCompat.CONSUMED
         }
 
+
+    }
+
+    //avoid recall
+    private fun retry(message: String, token: String) {
+        binding.firstFModernButton.apply {
+            showState(true)
+            setTipText(message)
+            setOnClickListener {
+                viewModel.category(token)
+                binding.firstFCircularProgress.setShowWithBoolean(true)
+                showState(false)
+            }
+        }
     }
 
     override fun onDestroyView() {

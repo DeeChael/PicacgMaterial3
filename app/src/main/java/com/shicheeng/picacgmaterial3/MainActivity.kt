@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.shicheeng.picacgmaterial3.fragment.SecondFragment
 import com.shicheeng.picacgmaterial3.fragment.ThirdFragment
 import com.shicheeng.picacgmaterial3.fragment.login.LoginDialogFragment
 import com.shicheeng.picacgmaterial3.inapp.AppActivity
+import com.shicheeng.picacgmaterial3.main.SearchActivity
 import com.shicheeng.picacgmaterial3.main.SettingActivity
 import com.shicheeng.picacgmaterial3.viewmodel.MainViewModel
 
@@ -54,7 +56,6 @@ class MainActivity : AppActivity() {
             val mAdapter = MainAdapter(listFragment, supportFragmentManager, this.lifecycle)
             pager2.apply {
                 adapter = mAdapter
-                offscreenPageLimit = 1
             }
 
         } else {
@@ -72,16 +73,18 @@ class MainActivity : AppActivity() {
                 val mAdapter = MainAdapter(listFragment, supportFragmentManager, this.lifecycle)
                 pager2.apply {
                     adapter = mAdapter
-                    offscreenPageLimit = 1
                 }
 
-                with(sharedPref.edit()) {
-                    putString(Utils.key, it)
-                    apply()
-                }
             }
 
 
+        }
+
+        viewModel.loginOutError.observe(this) {
+            val dialogFragment = LoginDialogFragment()
+            dialogFragment.isCancelable = false
+            dialogFragment.show(supportFragmentManager, LoginDialogFragment.TAG)
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 
         binding.mainBottomNavigationBar.setOnItemSelectedListener {
@@ -126,6 +129,12 @@ class MainActivity : AppActivity() {
             action_settings -> {
                 val setting = Intent(this, SettingActivity::class.java)
                 startActivity(setting)
+                true
+            }
+            action_search -> {
+                val intent = Intent()
+                intent.setClass(this, SearchActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

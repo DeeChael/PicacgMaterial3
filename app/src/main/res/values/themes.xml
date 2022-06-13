@@ -11,6 +11,7 @@
         <item name="chipBackgroundColor">?android:attr/divider</item>
         <item name="chipStyle">@style/Widget.ShihCheeng.Chip.Action</item>
         <item name="chipTagsStyle">@style/Widget.ShihCheeng.Chip.Tags</item>
+        <item name="chipTagsBigStyle">@style/Widget.ShihCheeng.Chip.Big</item>
     </style>
 
     <style name="Theme.PicacgMaterial3" parent="Base.Theme.PicacgMaterial3" />

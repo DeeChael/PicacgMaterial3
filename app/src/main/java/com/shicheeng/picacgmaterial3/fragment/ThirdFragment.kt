@@ -56,7 +56,6 @@ class ThirdFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val token = arguments?.getString("TOKEN")!!
         var progressNum = 0
-
         viewModel.profile(token)
         viewModel.favoriteBooks(1, token)
 

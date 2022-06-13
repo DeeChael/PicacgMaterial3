@@ -107,7 +107,7 @@ class FavoriteComicActivity : AppActivity() {
                 setTipText(it)
                 showState(true)
                 setOnClickListener {
-                    viewModel.favoriteBooks(1, token)
+                    viewModel.favoriteBooks(page, token)
                     showState(false)
                     binding.favoriteComicIndication.setShowWithBoolean(true)
                 }

@@ -1,9 +1,9 @@
 package com.shicheeng.picacgmaterial3.api
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.preference.PreferenceManager
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.shicheeng.picacgmaterial3.MyApp
 import okhttp3.CacheControl
 import okhttp3.Headers
@@ -12,6 +12,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.InputStream
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.time.Duration
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * 灵感来自
- * @see https://github.com/tachiyomiorg/tachiyomi-extensions/tree/master/src/zh/picacomic
+ * see [https://github.com/tachiyomiorg/tachiyomi-extensions/tree/master/src/zh/picacomic]
  */
 class Utils {
 
@@ -31,18 +32,20 @@ class Utils {
         .maxAge(3, TimeUnit.SECONDS)
         .build()
 
-    private val sharePreferences = PreferenceManager.getDefaultSharedPreferences(MyApp.contextBase)
+    private val manager by lazy {
+        PreferenceManager.getDefaultSharedPreferences(MyApp.contextBase)
+    }
 
     private val basicHeaders = mapOf(
         "api-key" to "C69BAF41DA5ABD1FFEDC6D2FEA56B",
-        "app-channel" to sharePreferences.getString("APP_CHANNEL", "2")!!,
+        "app-channel" to manager.getString("APP_CHANNEL", "2")!!,
         "app-version" to "2.2.1.3.3.4",
         "app-uuid" to "defaultUuid",
         "app-platform" to "android",
         "app-build-version" to "45",
         "User-Agent" to "okhttp/3.8.1",
         "accept" to "application/vnd.picacomic.com.v1+json",
-        "image-quality" to sharePreferences.getString("IMAGE_QUALITY", "original")!!,
+        "image-quality" to manager.getString("IMAGE_QUALITY", "original")!!,
         "Content-Type" to "application/json; charset=UTF-8", // must be exactly matched!
     )
 
@@ -169,9 +172,51 @@ class Utils {
                 .headers(picaHeaders(url, "GET", token))
                 .cacheControl(DEFAULT_CACHE_CONTROL)
                 .build()
-        Log.d("TAGAA", "getComics: ${request.body}")
+        //Log.d("TAGAA", "getComics: ${request.body}")
 
         val response = client.newCall(request).execute()
+        return response.body!!.string()
+    }
+
+
+    /**
+     * 获取热搜
+     */
+    fun getComicKeyWord(token: String): String {
+        val url = "https://picaapi.picacomic.com/keywords"
+        val client = OkHttpClient()
+
+        val request = Requset().GET(url, picaHeaders(url, "GET", token))
+        val response = client.newCall(request).execute()
+
+        return response.body!!.string()
+    }
+
+    /**
+     * 漫画搜索
+     * @param category 合集
+     * @param keyWord 关键字
+     * @param sort 分类
+     * @param page 页数
+     * */
+    fun searchComic(
+        category: String? = null,
+        keyWord: String,
+        sort: String? = null,
+        page: Int,
+        token: String,
+    ): String {
+        val url = "https://picaapi.picacomic.com/comics/advanced-search?page=$page"
+        val client = OkHttpClient()
+        val postData = JsonObject().apply {
+            addProperty("categories", category)
+            addProperty("keyword", keyWord)
+            addProperty("sort", sort)
+        }.asJsonObject.toString().toRequestBody("application/json; charset=UTF-8".toMediaType())
+
+        val request = Requset().POST(url, picaHeaders(url, "POST", token), postData)
+        val response = client.newCall(request).execute()
+
         return response.body!!.string()
     }
 
@@ -221,6 +266,20 @@ class Utils {
     }
 
     /**
+     * 获取bitmap
+     */
+    fun getImageBitmap(url: String): InputStream {
+        val client = OkHttpClient.Builder().build()
+
+        val request = Request.Builder().url(url).get()
+            .cacheControl(DEFAULT_CACHE_CONTROL)
+            .build()
+        val response = client.newCall(request).execute()
+
+        return response.body!!.byteStream()
+    }
+
+    /**
      * 获取排行漫画
      *
      * @param urlOnRank 链接
@@ -232,7 +291,15 @@ class Utils {
         val request = Requset().GET(url, picaHeaders(url, "GET", token))
         val response = client.newCall(request).execute()
 
-        return response.body!!.string()
+        val a = response.body!!.string()
+        if (JsonParser.parseString(a)
+                .asJsonObject.get("message")
+                .asString.equals("unauthorized")
+        ) {
+            throw LoginFException("登录过期")
+        }
+
+        return a
     }
 
 
@@ -240,13 +307,14 @@ class Utils {
      * 获取漫画分区
      */
     fun getComicsCategory(token: String): String {
-
         val client = OkHttpClient.Builder().build()
         val url = "$baseUrl/categories"
         val request = Requset().GET(url, picaHeaders(url, "GET", token))
-
         val response = client.newCall(request).execute()
-        return response.body!!.string()
+        val a = response.body!!.string()
+
+
+        return a
     }
 
     /**
@@ -287,6 +355,14 @@ class Utils {
             return date.format(timeS)
         }
 
+        fun unauthorizedCheck(string: String): Boolean {
+            return JsonParser.parseString(string)
+                .asJsonObject.get("message")
+                .asString.equals("unauthorized")
+        }
+
+
+
         const val preferenceFileKey = "com.shihcheeng.picacgmaterial3.PREFERENCE_FILE_KEY"
 
         const val key = "KEY_TOKEN"
@@ -296,5 +372,7 @@ class Utils {
     }
 
 }
+
+
 
 

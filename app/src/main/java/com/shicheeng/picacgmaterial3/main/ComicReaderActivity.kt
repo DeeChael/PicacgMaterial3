@@ -222,5 +222,10 @@ class ComicReaderActivity : AppActivity() {
         binding.comicReaderBottomBar.visibility = View.VISIBLE
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
 
 }

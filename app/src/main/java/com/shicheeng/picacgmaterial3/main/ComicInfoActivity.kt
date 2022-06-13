@@ -159,7 +159,7 @@ class ComicInfoActivity : AppActivity() {
                     toggle()
                 }
             } else {
-                return
+                isClickable = false
             }
         }
 

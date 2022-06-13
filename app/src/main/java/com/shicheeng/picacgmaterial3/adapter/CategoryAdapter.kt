@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.shicheeng.picacgmaterial3.R
 import com.shicheeng.picacgmaterial3.adapter.CategoryAdapter.CategoryViewHolder
 import com.shicheeng.picacgmaterial3.data.CategoryData
@@ -30,6 +31,8 @@ class CategoryAdapter(private val list: MutableList<CategoryData>, private val t
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.titleText.text = list[position].title
         Glide.with(holder.itemView.context).load(list[position].url)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.icon)
 
         holder.itemView.setOnClickListener {

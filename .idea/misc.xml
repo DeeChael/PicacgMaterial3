@@ -7,6 +7,7 @@
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/activity_favorite_comic.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/activity_rader.xml" value="0.176" />
+        <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/activity_search.xml" value="0.2484375" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/activity_setting.xml" value="0.2484375" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/activty_comic_info.xml" value="0.2" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/category_item.xml" value="0.24947916666666667" />
@@ -23,8 +24,11 @@
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/me_show_item.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/rank_item.xml" value="0.2" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/rank_item_chip.xml" value="0.536" />
+        <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/widget_hot_keyword_list.xml" value="0.2484375" />
+        <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/widget_keyword_hot_search.xml" value="0.2" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/widget_modern_button.xml" value="0.2484375" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/layout/widget_modern_progress_indicator.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/menu/menu_main.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/menu/muen_naviagtion.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/xml/array.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/ShihCheeng/AndroidStudioProjects/PicacgMaterial3/app/src/main/res/xml/setting.xml" value="0.24947916666666667" />

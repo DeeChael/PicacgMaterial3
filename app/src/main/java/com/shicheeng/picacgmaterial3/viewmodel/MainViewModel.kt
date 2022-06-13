@@ -28,6 +28,9 @@ class MainViewModel : ViewModel() {
     private val _categoryError: MutableLiveData<String> = MutableLiveData()
     val categoryError: LiveData<String> = _categoryError
 
+    private val _loginOutError: MutableLiveData<String> = MutableLiveData()
+    val loginOutError: LiveData<String> = _loginOutError
+
     private val utils = Utils()
 
     fun login(username: String, password: String) {
@@ -53,7 +56,14 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    _dataCategory.postValue(utils.getComicsCategory(token))
+                    val s = utils.getComicsCategory(token)
+                    if (Utils.unauthorizedCheck(s)) {
+                        _loginOutError.postValue("登录过期")
+                        _indication.postValue(false)
+                        return@withContext
+                    }
+                    _dataCategory.postValue(s)
+
                 } catch (e: SocketTimeoutException) {
                     _categoryError.postValue("超时")
                 } catch (e: Exception) {
@@ -63,9 +73,4 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
-    fun indicationShow(show: Boolean) {
-        _indication.postValue(show)
-    }
-
 }

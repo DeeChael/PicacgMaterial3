@@ -1,5 +1,6 @@
 package com.shicheeng.picacgmaterial3.fragment.reader
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ class ReaderPagerFragment : Fragment() {
     private var _binding: FragmentImageBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ComicReaderPagerViewModel by viewModels()
+    private var bitmap: Bitmap? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +41,8 @@ class ReaderPagerFragment : Fragment() {
         val lianJie = arguments?.getString("URL")!!
         viewModel.loadingBitmap(lianJie)
         viewModel.imageBitmap.observe(viewLifecycleOwner) {
-            binding.comicReaderImage.setImageBitmap(it)
+            bitmap = it
+            binding.comicReaderImage.setImageBitmap(bitmap)
         }
         viewModel.showState.observe(viewLifecycleOwner) {
             binding.comicImageIndicator.showState(it)
@@ -59,6 +62,8 @@ class ReaderPagerFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        bitmap?.recycle()
+        bitmap = null
     }
 
 }

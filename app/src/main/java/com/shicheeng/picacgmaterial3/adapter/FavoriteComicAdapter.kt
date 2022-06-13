@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.ChipGroup
 import com.shicheeng.picacgmaterial3.R
 import com.shicheeng.picacgmaterial3.data.FavoriteItemData
@@ -35,7 +36,9 @@ class FavoriteComicAdapter(private val list: MutableList<FavoriteItemData>) :
         holder.apply {
             titleText.text = list[position].title
             authorText.text = list[position].author
-            Glide.with(itemView).load(list[position].url).into(thumb)
+            Glide.with(itemView).load(list[position].url)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(thumb)
             itemView.setOnClickListener {
 
                 val intent = Intent()

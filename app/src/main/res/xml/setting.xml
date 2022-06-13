@@ -9,6 +9,7 @@
             app:defaultValue="2"
             app:entries="@array/setting_channel_set"
             app:entryValues="@array/setting_channel_set_value"
+            app:icon="@drawable/ic_app_channel"
             app:key="APP_CHANNEL"
             app:summary="若一直加载出错，更改此项可能会有好处。将会在下一次加载时启作用"
             app:title="选择分流" />
@@ -20,6 +21,16 @@
             app:key="IMAGE_QUALITY"
             app:summary="选择图片的质量，这将影响全局。将会在下一次加载时起作用"
             app:title="图片质量" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="系统">
+
+        <Preference
+            app:key="CLEAN_MEMORY"
+            app:summary="@string/summary_clear_cache"
+            app:title="清除缓存" />
+
 
     </PreferenceCategory>
 

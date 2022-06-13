@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shicheeng.picacgmaterial3.api.LoginFException
 import com.shicheeng.picacgmaterial3.api.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,14 +31,12 @@ class RankViewModel : ViewModel() {
                     _errorMessage.postValue("获取超时")
                 } catch (e: Exception) {
                     _errorMessage.postValue("获取错误")
+                } catch (e: LoginFException) {
+                    _errorMessage.postValue("登录过期")
                 }
                 _indication.postValue(false)
             }
         }
-    }
-
-    fun indicationShow(show: Boolean) {
-        _indication.postValue(show)
     }
 
 }

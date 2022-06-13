@@ -1,12 +1,11 @@
 package com.shicheeng.picacgmaterial3.viewmodel
 
-import android.app.Application
 import android.graphics.Bitmap
-import androidx.lifecycle.AndroidViewModel
+import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide
 import com.shicheeng.picacgmaterial3.api.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +15,7 @@ import java.net.SocketTimeoutException
 import java.util.concurrent.ExecutionException
 
 @Suppress("BlockingMethodInNonBlockingContext")
-class ComicReaderPagerViewModel(application: Application) : AndroidViewModel(application) {
+class ComicReaderPagerViewModel : ViewModel() {
 
     private val _imageBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     val imageBitmap: LiveData<Bitmap> = _imageBitmap
@@ -32,9 +31,15 @@ class ComicReaderPagerViewModel(application: Application) : AndroidViewModel(app
 
             withContext(Dispatchers.IO) {
                 try {
-                    val context = Glide.get(getApplication()).context
-                    val bitmap = Glide.with(context).asBitmap().load(url).submit().get()
+                    val op: BitmapFactory.Options = BitmapFactory.Options()
+                    op.inSampleSize = 2
+                    op.inJustDecodeBounds = false
+                    val bitmapArray = Utils().getImageBitmap(url)
+                    val bitmap =
+                        BitmapFactory.decodeStream(bitmapArray, null, op)
                     _imageBitmap.postValue(bitmap)
+                    bitmapArray.close()
+
                 } catch (e: SocketException) {
                     _errorLoad.postValue(Utils.ERROR_LOADING)
                 } catch (e: ExecutionException) {
@@ -48,5 +53,4 @@ class ComicReaderPagerViewModel(application: Application) : AndroidViewModel(app
             }
         }
     }
-
 }

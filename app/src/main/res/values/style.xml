@@ -29,5 +29,15 @@
 
     </style>
 
+    <style name="Widget.ShihCheeng.Chip.Big" parent="Widget.MaterialComponents.Chip.Action">
+
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="android:clickable">false</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="android:textSize">16sp</item>
+
+    </style>
+
 
 </resources>

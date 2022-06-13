@@ -9,10 +9,8 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.google.android.material.appbar.AppBarLayout
 import com.shicheeng.picacgmaterial3.api.Utils
-import java.util.*
 
 open class AppActivity : AppCompatActivity() {
-
 
     fun paddingUp(rootView: View, app: AppBarLayout) {
         ViewCompat.setOnApplyWindowInsetsListener(rootView) { v: View, wic: WindowInsetsCompat ->
@@ -47,5 +45,6 @@ open class AppActivity : AppCompatActivity() {
         val shareFile = this.getSharedPreferences(Utils.preferenceFileKey, MODE_PRIVATE)
         return shareFile.getString(Utils.key, "NO_KEY")
     }
+
 
 }

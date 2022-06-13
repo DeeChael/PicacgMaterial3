@@ -10,7 +10,9 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
-
+/**
+ * 扩展了原本的圆形指示器，可以直接使用布尔值来控制消失显示
+ */
 fun CircularProgressIndicator.setShowWithBoolean(boolean: Boolean) {
     visibility = if (boolean) {
         View.VISIBLE
@@ -19,6 +21,9 @@ fun CircularProgressIndicator.setShowWithBoolean(boolean: Boolean) {
     }
 }
 
+/**
+ * 扩展了原本的圆形指示器，可以直接使用布尔值来控制消失显示
+ */
 fun LinearProgressIndicator.setShowWithBoolean(boolean: Boolean) {
     visibility = if (boolean) {
         View.VISIBLE

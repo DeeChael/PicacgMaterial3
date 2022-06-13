@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.shicheeng.picacgmaterial3.R
 import com.shicheeng.picacgmaterial3.adapter.ComicItemCommonAdapter.CommonHolder
 import com.shicheeng.picacgmaterial3.data.ComicItemCommonData
@@ -34,7 +35,9 @@ class ComicItemCommonAdapter(private val list: MutableList<ComicItemCommonData>)
         holder.titleText.text = list[position].title
         holder.authorText.text = list[position].author
         holder.thumbImage.apply {
-            Glide.with(this).load(list[position].url).into(this)
+            Glide.with(this).load(list[position].url)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(this)
         }
         holder.itemView.setOnClickListener {
             val intent = Intent()

@@ -1,5 +1,6 @@
 package com.shicheeng.picacgmaterial3.fragment.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.shicheeng.picacgmaterial3.R
+import com.shicheeng.picacgmaterial3.api.Utils
 import com.shicheeng.picacgmaterial3.viewmodel.MainViewModel
 
 class LoginDialogFragment : BottomSheetDialogFragment() {
@@ -46,6 +48,19 @@ class LoginDialogFragment : BottomSheetDialogFragment() {
             val name = userNameInputLayout.editText!!.text.toString()
             val pw = passWordInputLayout.editText?.editableText!!.toString()
             viewModel.login(name, pw)
+        }
+
+        viewModel.dataToken.observe(viewLifecycleOwner) {
+            val sharedPref = requireContext().getSharedPreferences(Utils.preferenceFileKey,
+                Context.MODE_PRIVATE)
+
+            with(sharedPref.edit()) {
+                putString(Utils.key, it)
+                commit()
+            }
+
+            //消失
+            dismiss()
         }
 
         viewModel.dataTokenError.observe(viewLifecycleOwner) {

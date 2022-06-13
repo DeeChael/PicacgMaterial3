@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="chipTagsStyle" format="reference" />
+    <attr name="chipTagsBigStyle" format="reference" />
 
     <declare-styleable name="ShihCheengModernButton">
         <attr name="tipText" format="string" />
@@ -9,7 +10,7 @@
 
     <declare-styleable name="ModernCircularProgressIndicator">
         <attr name="showingText" format="string" />
-        <attr name="showingTextColor" format="color"/>
+        <attr name="showingTextColor" format="color" />
     </declare-styleable>
 
 </resources>
