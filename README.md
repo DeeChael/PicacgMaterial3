@@ -15,7 +15,7 @@
  - 搜索功能只能有限的显示，我忙完了之后就会修
 
 ## 截屏
-![jieping](screenshot/jietu.png)
+![jieping](screenshot/sc1.0.9.png)
 
 ## 鸣谢
 
