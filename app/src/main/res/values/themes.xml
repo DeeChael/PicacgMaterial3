@@ -3,16 +3,17 @@
     <style name="Base.Theme.PicacgMaterial3" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">?colorSurface</item>
-        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
-
         <item name="chipBackgroundColor">?android:attr/divider</item>
         <item name="chipStyle">@style/Widget.ShihCheeng.Chip.Action</item>
         <item name="chipTagsStyle">@style/Widget.ShihCheeng.Chip.Tags</item>
         <item name="chipTagsBigStyle">@style/Widget.ShihCheeng.Chip.Big</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+        
     </style>
 
-    <style name="Theme.PicacgMaterial3" parent="Base.Theme.PicacgMaterial3" />
+    <style name="Theme.PicacgMaterial3" parent="Base.Theme.PicacgMaterial3" >
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">?colorSurface</item>
+
+    </style>
 </resources>

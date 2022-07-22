@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.davemorrissey.labs.subscaleview.ImageSource
 import com.shicheeng.picacgmaterial3.databinding.FragmentImageBinding
 import com.shicheeng.picacgmaterial3.viewmodel.ComicReaderPagerViewModel
 
 class ReaderPagerFragment : Fragment() {
+
 
     companion object {
         fun newInstance(url: String): ReaderPagerFragment {
@@ -20,12 +22,16 @@ class ReaderPagerFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+
+
     }
 
     private var _binding: FragmentImageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var onClick: (v: View) -> Unit
     private val viewModel: ComicReaderPagerViewModel by viewModels()
-    private var bitmap: Bitmap? = null
+    private var _bitmap: Bitmap? = null
+    private val bitmap get() = _bitmap!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +39,9 @@ class ReaderPagerFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentImageBinding.inflate(layoutInflater, container, false)
+        binding.comicReaderImage.setOnClickListener {
+            onClick.invoke(it)
+        }
         return binding.root
     }
 
@@ -40,30 +49,37 @@ class ReaderPagerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val lianJie = arguments?.getString("URL")!!
         viewModel.loadingBitmap(lianJie)
+
         viewModel.imageBitmap.observe(viewLifecycleOwner) {
-            bitmap = it
-            binding.comicReaderImage.setImageBitmap(bitmap)
+            _bitmap = it
+            binding.comicReaderImage.setImage(ImageSource.bitmap(bitmap))
         }
+
         viewModel.showState.observe(viewLifecycleOwner) {
             binding.comicImageIndicator.showState(it)
         }
+
         viewModel.errorLoad.observe(viewLifecycleOwner) {
             binding.comicImageButton.apply {
                 visibility = View.VISIBLE
                 setOnClickListener {
                     viewModel.loadingBitmap(lianJie)
+                    visibility = View.VISIBLE
                     binding.comicImageIndicator.showState(true)
                 }
             }
         }
+    }
 
+    fun setOnFragmentImageClick(onClick: (v: View) -> Unit) {
+        this.onClick = onClick
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        _bitmap?.recycle()
+        _bitmap = null
         _binding = null
-        bitmap?.recycle()
-        bitmap = null
     }
 
 }

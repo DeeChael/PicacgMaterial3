@@ -13,7 +13,7 @@ public class FileUtils {
     /**
      * 获取缓存大小
      *
-     * @param context 上下问
+     * @param context 上下文
      * @return 大小
      * @throws Exception 错误
      */
@@ -25,7 +25,7 @@ public class FileUtils {
     /**
      * 获取文件大小
      */
-    private static long getFolderSize(File file) throws Exception {
+    private static long getFolderSize(File file) {
         long size = 0;
         try {
             File[] fileList = file.listFiles();

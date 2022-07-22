@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.slider.Slider
 import com.google.gson.JsonParser
 import com.shicheeng.picacgmaterial3.R
 import com.shicheeng.picacgmaterial3.adapter.pagers.ReaderPagerAdapter
@@ -64,17 +63,29 @@ class ComicReaderActivity : AppActivity() {
 
                     super.onPageSelected(position)
                     binding.comicReaderBottomSubtitle.text =
-                        getString(R.string.page_count,
+                        getString(
+                            R.string.page_count,
                             (position + 1).toString(),
-                            totalPagers.toString())
+                            totalPagers.toString()
+                        )
+                    binding.comicReaderSeekBar.value = (position + 1).toFloat()
+                }
+            })
+            binding.comicReaderSeekBar.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
+                if (fromUser) {
+                    binding.comicReaderViewPagers.setCurrentItem(value.toInt() - 1, true)
                 }
             })
 
-            binding.comicReaderBottomSubtitle.text = getString(R.string.page_count,
+            binding.comicReaderBottomSubtitle.text = getString(
+                R.string.page_count,
                 1.toString(),
-                totalPagers.toString())
+                totalPagers.toString()
+            )
+            binding.comicReaderSeekBar.valueTo = totalPagers.toFloat()
+            binding.comicReaderSeekBar.valueFrom = 1f
+            binding.comicReaderSeekBar.value = 1f
             binding.comicReaderBottomTitle.text = comicEps
-            binding.comicReaderBottomBtn.text = getString(R.string.next)
             binding.comicReaderBottomBtn.setOnClickListener {
                 position -= 1
                 //小判断
@@ -83,10 +94,13 @@ class ComicReaderActivity : AppActivity() {
                     viewModel.loadComicsUrls(comicId, orderList[position], token)
 
                 } else {
-                    Snackbar.make(viewRoot, "无下一章节", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("退出") {
+                    Toast.makeText(this, R.string.no_more, Toast.LENGTH_SHORT).show()
+                    binding.comicReaderBottomBtn.apply {
+                        icon = getDrawable(R.drawable.ic_close_this)
+                        setOnClickListener {
                             finish()
-                        }.show()
+                        }
+                    }
                 }
             }
 
@@ -94,7 +108,7 @@ class ComicReaderActivity : AppActivity() {
         }
 
         viewModel.comicPictureUrl.observe(this) {
-            val list = ArrayList<Fragment>()
+            val list = ArrayList<ReaderPagerFragment>()
             it.forEach { url ->
                 list.add(ReaderPagerFragment.newInstance(url))
             }
@@ -149,15 +163,23 @@ class ComicReaderActivity : AppActivity() {
 
     }
 
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_N) {
-            binding.comicReaderViewPagers.currentItem = +1
-            return true
-        } else if (keyCode == KeyEvent.KEYCODE_P) {
-            binding.comicReaderViewPagers.currentItem = -1
-            return true
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_VOLUME_UP -> {
+                binding.comicReaderViewPagers.apply {
+                    setCurrentItem(currentItem - 1, true)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                binding.comicReaderViewPagers.apply {
+                    setCurrentItem(currentItem + 1, true)
+                }
+                return true
+            }
         }
-        return super.onKeyUp(keyCode, event)
+        return super.onKeyDown(keyCode, event)
     }
 
     //切换
@@ -175,9 +197,6 @@ class ComicReaderActivity : AppActivity() {
             val windowInsetsController =
                 ViewCompat.getWindowInsetsController(window.decorView) ?: return
             // Configure the behavior of the hidden system bars
-            windowInsetsController.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            // Hide both the status bar and the navigation bar
             windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
         } else {
             // Note that some of these constants are new as of API 16 (Jelly Bean)
@@ -190,8 +209,10 @@ class ComicReaderActivity : AppActivity() {
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
         }
 
         supportActionBar!!.hide()
@@ -205,9 +226,6 @@ class ComicReaderActivity : AppActivity() {
             val windowInsetsController =
                 ViewCompat.getWindowInsetsController(window.decorView) ?: return
             // Configure the behavior of the hidden system bars
-            windowInsetsController.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            // Show both the status bar and the navigation bar
             windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         } else {
             binding.root.systemUiVisibility =
@@ -220,11 +238,6 @@ class ComicReaderActivity : AppActivity() {
         supportActionBar!!.show()
         isShowBar = true
         binding.comicReaderBottomBar.visibility = View.VISIBLE
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
     }
 
 

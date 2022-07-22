@@ -8,6 +8,7 @@
         android:id="@+id/comic_reader_view_pagers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:layoutDirection="rtl" />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -30,13 +31,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?colorSecondary"
-        android:orientation="horizontal"
+        android:background="?colorSurface"
+        android:orientation="vertical"
         android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/comic_reader_seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layoutDirection="rtl"
+                android:stepSize="1"
+                app:labelBehavior="floating" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/comic_reader_bottom_btn"
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/next"
+                app:icon="@drawable/ic_next_chapter"
+                app:iconTint="@color/white" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -48,7 +75,7 @@
                 android:maxLines="1"
                 android:text="@string/num_show"
                 android:textAppearance="?textAppearanceHeadline6"
-                android:textColor="?colorOnSecondary" />
+                android:textColor="?colorOnSurface" />
 
             <TextView
                 android:id="@+id/comic_reader_bottom_subtitle"
@@ -57,15 +84,9 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/page_count"
                 android:textAppearance="?textAppearanceBody2"
-                android:textColor="?colorOnSecondary" />
+                android:textColor="?colorOnSurface" />
 
         </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/comic_reader_bottom_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next" />
 
 
     </LinearLayout>
@@ -75,7 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:showingText="@string/parser_uri" />
+        app:showingText="@string/parser_uri"
+        app:showingTextColor="@color/white" />
 
     <com.shicheeng.picacgmaterial3.widget.ModernButton
         android:id="@+id/comic_reader_modern_btn"

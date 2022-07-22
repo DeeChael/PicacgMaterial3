@@ -53,4 +53,11 @@
         android:layout_gravity="center"
         app:showingText="@string/loading_text" />
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/search_linear_indication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:indicatorColor="@array/color_array" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

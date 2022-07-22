@@ -33,3 +33,13 @@ data class ComicChpaterItemData(
     val order: Int,
     val time: String,
 )
+
+data class ComicCommentItemData(
+    val name: String,
+    val slogan: String?,
+    val level: String,
+    val url: String?,
+    val content: String,
+    val likeCount: Int,
+    val time: String
+)

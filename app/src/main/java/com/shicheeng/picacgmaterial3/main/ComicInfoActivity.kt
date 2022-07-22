@@ -3,8 +3,11 @@ package com.shicheeng.picacgmaterial3.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.graphics.Insets
 import androidx.core.view.WindowCompat
+import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.*
 import com.google.android.material.chip.Chip
@@ -40,6 +43,8 @@ class ComicInfoActivity : AppActivity() {
         viewModel.getComicInfoData(comicId, token)
         viewModel.getComicChapterData(comicId, 1, token)
         titleComic = "未知标题"
+        val commentFab = binding.comicInfoCommentFab
+        commentFab.hide()
 
         viewModel.comicInfoData.observe(this) {
             val data =
@@ -96,6 +101,14 @@ class ComicInfoActivity : AppActivity() {
             binding.comicInfoCreator.text = getString(R.string.create_by, creator)
             binding.comicInfoCreateTime.text = createTime
             Glide.with(this).load(thumbUrl).into(binding.comicHeaderThumb)
+            commentFab.show()
+            commentFab.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("TITLE", titles)
+                intent.putExtra("COMIC_ID", comicId)
+                intent.setClass(this, CommentsActivity::class.java)
+                startActivity(intent)
+            }
 
         }
 
@@ -109,6 +122,7 @@ class ComicInfoActivity : AppActivity() {
             val list = ArrayList<ComicChpaterItemData>()
             val allChapterList = ArrayList<Int>()
 
+            //解析数据
             for (datum in data) {
                 val json = datum.asJsonObject
                 val id = json["_id"].asString
@@ -121,6 +135,7 @@ class ComicInfoActivity : AppActivity() {
                 list.add(cid)
                 allChapterList.add(order)
             }
+
             val ad = ComicChaptersAdapter(list)
             binding.comicInfoChapterList.setAdapterAndManager(ad, flexboxLayoutManager)
             binding.comicInfoChapterList.isNestedScrollingEnabled = true
@@ -199,6 +214,13 @@ class ComicInfoActivity : AppActivity() {
         binding.comicInfoDescription.visibility = View.GONE
         binding.comicInfoDescriptionAll.visibility = View.VISIBLE
         isExtend = true
+    }
+
+    override fun onViewInsets(insets: Insets) {
+        super.onViewInsets(insets)
+        binding.comicInfoCommentFab.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = insets.bottom
+        }
     }
 
 

@@ -45,4 +45,11 @@
     <string name="search">搜索</string>
     <string name="search_tip">输入搜索内容</string>
     <string name="unknown_author">未知作者</string>
+    <string name="see_comment">查看评论</string>
+    <string name="comment">评论</string>
+    <string name="level_info">等级</string>
+    <string name="level_show">3</string>
+    <string name="like_count_comment">%s 位绅士觉得这个评论很顶</string>
+    <string name="no_more">没有更多了</string>
+    <string name="exit">退出</string>
 </resources>

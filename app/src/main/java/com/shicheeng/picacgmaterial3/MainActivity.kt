@@ -74,17 +74,27 @@ class MainActivity : AppActivity() {
                 pager2.apply {
                     adapter = mAdapter
                 }
-
             }
-
-
         }
 
         viewModel.loginOutError.observe(this) {
+            //再调用该方法
             val dialogFragment = LoginDialogFragment()
             dialogFragment.isCancelable = false
             dialogFragment.show(supportFragmentManager, LoginDialogFragment.TAG)
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            viewModel.dataToken.observe(dialogFragment) { token ->
+                val listFragment = listOf(
+                    FirstFragment.newInstance(token),
+                    SecondFragment.newInstance(token),
+                    ThirdFragment.newInstance(token)
+                )
+                binding.progressOnGettingTokenBar.visibility = View.GONE
+                val mAdapter = MainAdapter(listFragment, supportFragmentManager, this.lifecycle)
+                pager2.apply {
+                    adapter = mAdapter
+                }
+            }
         }
 
         binding.mainBottomNavigationBar.setOnItemSelectedListener {

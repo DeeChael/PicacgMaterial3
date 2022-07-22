@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.gson.JsonParser
 import com.shicheeng.picacgmaterial3.adapter.RankAdapter
 import com.shicheeng.picacgmaterial3.api.Utils
@@ -82,6 +83,17 @@ class RankFragment : Fragment() {
             }
 
         }
+
+        binding.rankFragmentRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Glide.with(recyclerView).pauseRequests()
+                } else {
+                    Glide.with(recyclerView).resumeRequests()
+                }
+            }
+        })
 
         viewModel.errorMessage.observe(viewLifecycleOwner) {
             binding.rankFragmentModernButton.apply {

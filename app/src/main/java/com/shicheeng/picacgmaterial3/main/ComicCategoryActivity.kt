@@ -32,7 +32,7 @@ class ComicCategoryActivity : AppActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         paddingUp(viewRoot, binding.comicsAppBar)
         var keyWord = intent.getStringExtra("TITLE")!!
-        val token = intent.getStringExtra("TOKEN")!!
+        val token = token()!!
         binding.comicsToolBar.title = getString(R.string.comics_title, keyWord)
         var page = 1
         var order = Utils().order[0]!!
@@ -112,13 +112,15 @@ class ComicCategoryActivity : AppActivity() {
             docs["categories"].asJsonArray.forEach { jsonElement ->
                 mutableList.add(jsonElement.asString)
             }
-            val rankData = RankData(id,
+            val rankData = RankData(
+                id,
                 title,
                 author,
                 url,
                 mutableList,
                 likesCount,
-                getString(R.string.like_count))
+                getString(R.string.like_count)
+            )
             list.add(rankData)
         }
 

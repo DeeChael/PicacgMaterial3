@@ -31,7 +31,8 @@
         <activity android:name=".main.ComicInfoActivity" />
         <activity android:name=".main.ComicReaderActivity" />
         <activity android:name=".main.SettingActivity" />
-        <activity android:name=".main.SearchActivity"/>
+        <activity android:name=".main.SearchActivity" />
+        <activity android:name=".main.CommentsActivity" />
     </application>
 
 </manifest>

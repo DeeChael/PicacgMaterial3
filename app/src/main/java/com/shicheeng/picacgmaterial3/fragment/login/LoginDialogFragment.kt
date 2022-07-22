@@ -64,7 +64,6 @@ class LoginDialogFragment : BottomSheetDialogFragment() {
         }
 
         viewModel.dataTokenError.observe(viewLifecycleOwner) {
-            userNameInputLayout.error = it
             passWordInputLayout.error = it
         }
 

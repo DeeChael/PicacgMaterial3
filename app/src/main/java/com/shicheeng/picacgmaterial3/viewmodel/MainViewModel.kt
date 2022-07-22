@@ -1,5 +1,6 @@
 package com.shicheeng.picacgmaterial3.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,6 +40,7 @@ class MainViewModel : ViewModel() {
                 try {
 
                     val tokenJson = utils.getToken(username, password)
+                    Log.d("TAG_LOGIN", "login: $tokenJson")
                     val token = JsonParser.parseString(tokenJson)
                         .asJsonObject["data"].asJsonObject["token"].asString
                     _dataToken.postValue(token)

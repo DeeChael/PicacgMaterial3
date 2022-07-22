@@ -36,18 +36,35 @@ class ModernCircularProgressIndicator @JvmOverloads constructor(
         binding.widgetModernIndicatorText.setTextColor(resID)
     }
 
+    fun textVisibility(visibility: Boolean) {
+        binding.widgetModernIndicatorText.visibility = if (visibility) {
+            VISIBLE
+        } else {
+            GONE
+        }
+    }
+
+    fun setInt(int: Int, animation: Boolean) {
+        binding.widgetModernIndicator.setProgress(int, animation)
+    }
+
     init {
-        context.theme.obtainStyledAttributes(attributeSet,
+        context.theme.obtainStyledAttributes(
+            attributeSet,
             R.styleable.ModernCircularProgressIndicator,
             0,
-            0).apply {
+            0
+        ).apply {
 
             binding.widgetModernIndicatorText.text =
                 getString(R.styleable.ModernCircularProgressIndicator_showingText)
             binding.widgetModernIndicatorText
                 .setTextColor(
-                    getColor(R.styleable.ModernCircularProgressIndicator_showingTextColor,
-                        Color.BLACK))
+                    getColor(
+                        R.styleable.ModernCircularProgressIndicator_showingTextColor,
+                        Color.BLACK
+                    )
+                )
         }
     }
 

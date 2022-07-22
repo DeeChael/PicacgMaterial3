@@ -7,6 +7,7 @@
     android:padding="12dp">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/widget_modern_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true" />

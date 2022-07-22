@@ -9,6 +9,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.gson.JsonParser
@@ -53,6 +55,7 @@ class FirstFragment : Fragment() {
         viewModel.category(token)
 
         viewModel.dataCategory.observe(viewLifecycleOwner) {
+            binding.firstFCircularProgress.setShowWithBoolean(false)
             val managerGrid = FlexboxLayoutManager(this.context)
             managerGrid.justifyContent = JustifyContent.SPACE_AROUND
             val json = JsonParser.parseString(it).asJsonObject
@@ -77,6 +80,20 @@ class FirstFragment : Fragment() {
                 layoutManager = managerGrid
             }
         }
+
+        binding.firstFRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Glide.with(recyclerView).resumeRequests()
+                } else {
+                    Glide.with(recyclerView).pauseRequests()
+                }
+
+            }
+        })
+
         viewModel.indication.observe(viewLifecycleOwner) {
             binding.firstFCircularProgress.setShowWithBoolean(it)
         }

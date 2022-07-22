@@ -5,9 +5,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.adapter.FragmentViewHolder
+import com.shicheeng.picacgmaterial3.fragment.reader.ReaderPagerFragment
 
 class ReaderPagerAdapter(
-    private val list: List<Fragment>,
+    private val list: List<ReaderPagerFragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
@@ -16,7 +17,13 @@ class ReaderPagerAdapter(
 
     override fun getItemCount(): Int = list.size
 
-    override fun createFragment(position: Int): Fragment = list[position]
+    override fun createFragment(position: Int): Fragment {
+        val fs = list[position]
+        fs.setOnFragmentImageClick {
+            l.invoke(position)
+        }
+        return fs
+    }
 
     override fun onBindViewHolder(
         holder: FragmentViewHolder,
@@ -24,11 +31,8 @@ class ReaderPagerAdapter(
         payloads: MutableList<Any>,
     ) {
         super.onBindViewHolder(holder, position, payloads)
-
-        holder.itemView.setOnClickListener {
-            l.invoke(position)
-        }
     }
+
 
     fun setOnPagerContentClickListener(l: (position: Int) -> Unit) {
         this.l = l

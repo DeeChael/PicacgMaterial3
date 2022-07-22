@@ -17,8 +17,8 @@ import java.util.concurrent.ExecutionException
 @Suppress("BlockingMethodInNonBlockingContext")
 class ComicReaderPagerViewModel : ViewModel() {
 
-    private val _imageBitmap: MutableLiveData<Bitmap> = MutableLiveData()
-    val imageBitmap: LiveData<Bitmap> = _imageBitmap
+    private val _imageBitmap: MutableLiveData<Bitmap?> = MutableLiveData()
+    val imageBitmap: LiveData<Bitmap?> = _imageBitmap
 
     private val _showState: MutableLiveData<Boolean> = MutableLiveData()
     val showState: LiveData<Boolean> = _showState
@@ -32,7 +32,6 @@ class ComicReaderPagerViewModel : ViewModel() {
             withContext(Dispatchers.IO) {
                 try {
                     val op: BitmapFactory.Options = BitmapFactory.Options()
-                    op.inSampleSize = 2
                     op.inJustDecodeBounds = false
                     val bitmapArray = Utils().getImageBitmap(url)
                     val bitmap =

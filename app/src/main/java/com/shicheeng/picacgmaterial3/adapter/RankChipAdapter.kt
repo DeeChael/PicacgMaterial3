@@ -1,18 +1,16 @@
 package com.shicheeng.picacgmaterial3.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.AlignSelf
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.chip.Chip
 import com.shicheeng.picacgmaterial3.R
 import com.shicheeng.picacgmaterial3.adapter.RankChipAdapter.ChipHolder
+import com.shicheeng.picacgmaterial3.main.ComicCategoryActivity
 
 class RankChipAdapter(private val list: MutableList<String>) : RecyclerView.Adapter<ChipHolder>() {
     class ChipHolder(itemView: View) : ViewHolder(itemView) {
@@ -32,7 +30,12 @@ class RankChipAdapter(private val list: MutableList<String>) : RecyclerView.Adap
         if (lp is FlexboxLayoutManager.LayoutParams) {
             val fl: FlexboxLayoutManager.LayoutParams = lp
             fl.flexGrow = 1.0f
-
+        }
+        holder.chip.setOnClickListener {
+            val ini = Intent()
+            ini.putExtra("TITLE", list[position])
+            ini.setClass(it.context, ComicCategoryActivity::class.java)
+            it.context.startActivity(ini)
         }
     }
 

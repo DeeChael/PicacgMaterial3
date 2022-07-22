@@ -31,7 +31,6 @@ class CategoryAdapter(private val list: MutableList<CategoryData>, private val t
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.titleText.text = list[position].title
         Glide.with(holder.itemView.context).load(list[position].url)
-            .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.icon)
 

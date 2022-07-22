@@ -92,3 +92,29 @@ fun ChipGroup.setChips(
     }
 }
 
+fun RecyclerView.setOnScrollingAction(onScrolling: () -> Unit) {
+
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        var isScrolling = false
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            val llm = recyclerView.layoutManager as LinearLayoutManager
+            val items = llm.itemCount
+            val lastItem = llm.findLastVisibleItemPosition()
+
+            if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if (isScrolling && lastItem == (items - 1)) {
+                    onScrolling()
+                }
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            isScrolling = dy > 0
+        }
+
+    })
+}
+

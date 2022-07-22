@@ -130,7 +130,6 @@ class Utils {
         val client = OkHttpClient.Builder().connectTimeout(Duration.ofMinutes(3)).build()
         val request = Requset().GET(url, picaHeaders(url, "GET", token))
         val response = client.newCall(request).execute()
-
         return response.body!!.string()
     }
 
@@ -178,6 +177,14 @@ class Utils {
         return response.body!!.string()
     }
 
+    fun getComicComments(comicID: String, page: Int, token: String): String {
+        val url = "https://picaapi.picacomic.com/comics/${comicID}/comments?page=$page"
+        val client = OkHttpClient.Builder().build()
+        val request = Requset().GET(url, picaHeaders(url, "GET", token))
+        val response = client.newCall(request).execute()
+
+        return response.body!!.string()
+    }
 
     /**
      * 获取热搜
@@ -338,6 +345,7 @@ class Utils {
                 .cacheControl(DEFAULT_CACHE_CONTROL).build()
 
         val response = client.newCall(request).execute()
+        //Log.d("TAG_RES", "getToken: ${response.body!!.string()}")
         return response.body!!.string()
     }
 
@@ -360,7 +368,6 @@ class Utils {
                 .asJsonObject.get("message")
                 .asString.equals("unauthorized")
         }
-
 
 
         const val preferenceFileKey = "com.shihcheeng.picacgmaterial3.PREFERENCE_FILE_KEY"

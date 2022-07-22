@@ -3,6 +3,7 @@ package com.shicheeng.picacgmaterial3.inapp
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -21,7 +22,7 @@ open class AppActivity : AppCompatActivity() {
                 marginStart = insets.left
             }
             app.updatePadding(top = insets.top)
-
+            onViewInsets(insets)
             WindowInsetsCompat.CONSUMED
         }
     }
@@ -36,7 +37,7 @@ open class AppActivity : AppCompatActivity() {
             }
             app.updatePadding(top = insets.top)
             bottomView.updatePadding(bottom = insets.bottom)
-
+            onViewInsets(insets)
             WindowInsetsCompat.CONSUMED
         }
     }
@@ -46,5 +47,6 @@ open class AppActivity : AppCompatActivity() {
         return shareFile.getString(Utils.key, "NO_KEY")
     }
 
+    open fun onViewInsets(insets: Insets) {}
 
 }
