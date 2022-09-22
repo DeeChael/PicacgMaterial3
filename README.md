@@ -1,4 +1,6 @@
 # PicacgMaterial3
+ **最近在忙于琐事之中，将会在一定时间后恢复更新**
+ 
  picacomic 第三方带有Material3主题的Android App
 
  ## 特性
