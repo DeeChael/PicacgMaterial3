@@ -39,7 +39,9 @@
 有bug就提issue，我会尽量解决
 
 ## 标星记录
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwXzQyaHpMZ1RsamdKdGx4MFdLeUljeGZiampJdDN2QzJkVVBtSg==#shizheng233/PicacgMaterial3&Timeline" frameBorder="0"></iframe>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=shizheng233/PicacgMaterial3&type=Timeline)](https://star-history.com/#shizheng233/PicacgMaterial3&Timeline)
+
 
 ## License
 
