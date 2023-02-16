@@ -1,4 +1,5 @@
 # PicacgMaterial3
+![GitHub all releases](https://img.shields.io/github/downloads/shizheng233/PicacgMaterial3/total?label=%E4%B8%8B%E8%BD%BD%E9%87%8F&style=flat-square)
  **最近在忙于琐事之中，将会在一定时间后恢复更新**
  
  picacomic 第三方带有Material3主题的Android App
